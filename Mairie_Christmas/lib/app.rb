@@ -17,7 +17,7 @@ end
 def get_townhall_email(url)
     url1 = "https://www.annuaire-des-mairies.com/"
         emails = Array.new
-        page = Nokogiri::HTML(open(url1 + url)) # ici on ajoute a l'url source l'extension correspondant a chacunes des villes
+        page = Nokogiri::HTML(open(url1 + url))
         page.xpath('//td[contains(text(), "@")]').each do |links|
             emails.push(links.text)
         end
