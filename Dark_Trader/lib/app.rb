@@ -6,8 +6,8 @@ require 'rubygems'
 def get_the_cryptonames()
     url = "https://coinmarketcap.com/all/views/all/"
     names = Array.new
-    page = Nokogiri::HTML(open(url))
-    getdata = page.css('//*[@id="currencies-all"]/tbody/tr/td.no-wrap.currency-name/a').each do |link|
+    page = Nokogiri::HTML(URI.open(url))
+    getdata = page.xpath('//a[@class="cmc-table__column-name--symbol cmc-link"]').each do |link|
         data = link.text
         names << data
     end
@@ -17,8 +17,8 @@ end
 def get_the_cryptovalue()
     url = "https://coinmarketcap.com/all/views/all/"
     value = Array.new
-    page = Nokogiri::HTML(open(url))
-    getdataval = page.css('//*[@id="currencies-all"]/tbody/tr/td[5]').each do |val|
+    page = Nokogiri::HTML(URI.open(url))
+    getdataval = page.xpath('//td[@class="cmc-table__cell cmc-table__cell--sortable cmc-table__cell--right cmc-table__cell--sort-by__price"]').each do |val|
         dataval = val.text
         value << dataval
     end
@@ -29,8 +29,8 @@ def perform()
     the_crypto_value = get_the_cryptovalue
     the_crypto_names = get_the_cryptonames
 
-    d = 0
-    c = 0
+    d = 0  
+    c = 0  
     while c < the_crypto_names.length
         puts "########################"
         puts the_crypto_names[d] + the_crypto_value [d]
